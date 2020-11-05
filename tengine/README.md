@@ -263,7 +263,7 @@ _Note: Eta uses unstable Deno APIs. Therefore, you must pass in the `--unstable`
     ```typescript
     import { Drash } from "https://deno.land/x/drash@v1.3.0/mod.ts";
     import { HomeResource } from "./home_resource.ts";
-    import { renderFile, configure } from "https://deno.land/x/eta@v1.6.0/mod.ts"
+    import { renderFile, configure } from "https://deno.land/x/eta@v1.11.0/mod.ts"
     
     // Set Eta's configuration
     configure({
