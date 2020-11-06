@@ -1,0 +1,5 @@
+▾ /path/to/your/project/
+	▾ /views
+		user.html
+	app.ts
+	user_resource.ts
