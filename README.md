@@ -47,7 +47,7 @@ Each middleware directory in this repository has a `README.md` file that shows y
 
 Contributors are welcomed!
 
-Please read through our [contributing guidelines](./.github/CONTRIBUTING.md). Included are directions for opening issues, coding standards, and notes on development.
+Please read through our [contributing guidelines](https://github.com/drashland/.github/blob/master/CONTRIBUTING.md). Included are directions for opening issues, coding standards, and notes on development.
 
 ## License
 
