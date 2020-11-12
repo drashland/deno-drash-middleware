@@ -88,7 +88,7 @@ Upon completing the Steps section below, your project's folder structure should 
     
     ```typescript
     import { Drash } from "https://deno.land/x/drash@v1.3.0/mod.ts";
-    import { Tengine } from "https://deno.land/x/drash_middleware@v0.6.1/tengine/mod.ts";
+    import { Tengine } from "https://deno.land/x/drash_middleware@v0.6.2/tengine/mod.ts";
     import { UserResource } from "./user_resource.ts";
 
     // Configure Tengine
