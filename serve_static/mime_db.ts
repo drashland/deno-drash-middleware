@@ -8222,4 +8222,3 @@ export const mimeDb: IMime = {
     compressible: true,
   },
 };
-

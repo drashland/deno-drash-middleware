@@ -3,13 +3,12 @@ import { mimeDb } from "./mime_db.ts";
 
 interface IOptions {
   root_directory: string;
-  static_paths: {[key: string]: string};
+  static_paths: { [key: string]: string };
 }
 
 export function ServeStatic(
   options: IOptions,
 ) {
-
   /**
    * The middleware function that's called by Drash.
    *
