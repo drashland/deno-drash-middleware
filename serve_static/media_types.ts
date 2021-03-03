@@ -1,34 +1,29 @@
 /**
- * The interface used for MIME Types.
+ * Interface for the media types in mime-db.
  *
- * ```ts
- *     [key: string]
- *         The mime type.
+ *     charset?: string;
+ *         The character encoding of this MIME type.
  *
- *         charset?: string;
- *             The character encoding of the MIME type.
+ *     compressible?: boolean;
+ *         Is this MIME type compressible?
  *
- *         compressible?: boolean;
- *             Is this MIME type compressible?
+ *     extensions?: string[]
+ *         An array of extensions that match this MIME type.
  *
- *         extensions?: string[]
- *             An array of extensions that match this MIME type.
- *
- *         source?: string;
- *             TODO(crookse) Need to figure out what the source is and how it
- *             applies to MIME types.
- * ```
+ *     source?: string;
+ *         The source of this MIME type (e.g., IANA).
  */
-interface IMime {
-  [key: string]: {
-    charset?: string;
-    compressible?: boolean;
-    extensions?: string[];
-    source?: string;
-  };
+interface IMediaType {
+  charset?: string;
+  compressible?: boolean;
+  extensions?: string[];
+  source?: string;
 }
 
-export const mimeDb: IMime = {
+/**
+ * The media type database.
+ */
+export const mediaTypes: {[key: string]: IMediaType } = {
   "application/1d-interleaved-parityfec": {
     source: "iana",
   },
@@ -8222,4 +8217,3 @@ export const mimeDb: IMime = {
     compressible: true,
   },
 };
-

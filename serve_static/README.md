@@ -2,40 +2,26 @@
 
 ServeStatic allows your Drash application to serve static files such as CSS, JS, etc.
 
-## Migrating from Drash's static_paths config?
+## Migrating from Drash's `static_paths` config?
 
-If you have received the message about `server.static_paths` being deprecated and are looking for the migration guide, click [here](./drash_migration_guide.md).
+If you have received the message about `server.static_paths` being deprecated and are looking for the migration guide, click [here](./migration_guide.md).
 
 ## Table of Contents
 
 * [Usage](#usage)
 * [Configuration](#configuration)
-* [Tutorial: Using Jae](#tutorial-using-jae)
-    * [Folder Structure End State](#jae-folder-structure-end-state)
-    * [Steps](#jae-steps)
-    * [Verification](#jae-verification)
-    * [Further Learning](#jae-further-learning)
-* [Tutorial: Using Eta](#tutorial-using-eta)
-    * [Disclaimer](#disclaimer-related-to-eta)
-    * [Folder Structure End State](#eta-folder-structure-end-state)
-    * [Steps](#eta-steps)
-    * [Verification](#eta-verification)
 
 ## Usage
 
 ```typescript
-// Import the Tengine middleware function
-import { Tengine } from "https://deno.land/x/drash_middleware@v0.6.1/tengine/mod.ts";
+// Import the ServeStatic middleware function
+import { ServeStatic } from "https://deno.land/x/drash_middleware@v0.6.1/mod.ts";
 
 // Use the default template engine that comes with Tengine, known as Jae.
 // Returning false in the render method tells Tengine to use Jae. Specifying
 // the views_path config tells Jae where your HTML files are located. The
 // views_path config is required if Jae is being used.
-const tengine = Tengine({
-  render: (...args: unknown[]): boolean => {
-    return false;
-  },
-  views_path: "./views"
+const tengine = ServeStatic({
 });
 ```
 

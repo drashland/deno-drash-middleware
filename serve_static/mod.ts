@@ -1,15 +1,38 @@
 import { Drash } from "../deps.ts";
-import { mimeDb } from "./mime_db.ts";
+import { mediaTypes } from "./media_types.ts";
 
-interface IOptions {
+/**
+ * The available options for the ServeStatic middleware.
+ *
+ * root_directory
+ *     The project's root directory.
+ *
+ * paths
+ *     The key-value object of static paths. For example,
+ *
+ *     {
+ *       "/assets": "/path/to/project/public/assets"
+ *     }
+ *
+ *     The key is the URI and the value is the physical path the URI maps to.
+ */
+export interface IOptions {
   root_directory: string;
-  static_paths: {[key: string]: string};
+  paths: { [key: string]: string };
 }
 
+////////////////////////////////////////////////////////////////////////////////
+// FILE MAKRER - SERVE STATIC //////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * Serve static and/or virtual paths.
+ *
+ * @param options - See IOptions for more information.
+ */
 export function ServeStatic(
   options: IOptions,
 ) {
-
   /**
    * The middleware function that's called by Drash.
    *
@@ -24,9 +47,10 @@ export function ServeStatic(
 
     const url = request.url_path;
 
-    response.headers.set("Content-Type", getMimeType(url) || "text/plain");
+    response.headers.set("Content-Type", getMimeType(url));
 
     const urlAsArray = url.split("/");
+
     // Take off the 0th element which is an empty string
     urlAsArray.shift();
 
@@ -34,7 +58,7 @@ export function ServeStatic(
     const file = urlAsArray.pop();
 
     const virtualPath = urlAsArray[0];
-    const physicalPath = options.static_paths[virtualPath];
+    const physicalPath = options.paths[virtualPath];
     const filepath = `${options.root_directory}/${physicalPath}/${file}`;
 
     response.body = await Deno.readFile(filepath);
@@ -64,13 +88,16 @@ function getMimeType(file: string): null | string {
 
   let fileExtension: string | string[] | undefined = file.split(".");
 
+  // The file extension is the last item in the array
   if (fileExtension.length > 0) {
     fileExtension = fileExtension.pop();
   }
 
-  for (let key in mimeDb) {
+  // See if we can match the file extension to an extension in mime-db's
+  // database
+  for (let key in mediaTypes) {
     if (!mimeType) {
-      const extensions = mimeDb[key].extensions;
+      const extensions = mediaTypes[key].extensions;
       if (extensions) {
         extensions.forEach((extension: string) => {
           if (fileExtension == extension) {
@@ -81,5 +108,6 @@ function getMimeType(file: string): null | string {
     }
   }
 
-  return mimeType;
+  // If we could not match the extension, then we serve text/plain by default
+  return mimeType ?? "text/plain";
 }

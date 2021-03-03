@@ -1,13 +1,18 @@
 # Drash `server.static_paths` Migration Guide
 
 1. Remove the following from your `const server = new Drash.Http.Server({ ... })` block:
+
     * `directory`
     * `static_paths`
-2. Import ServeStatic into your application where you are creating your server.
+
+2. Import `ServeStatic` into your application where you are creating your server.
+
     ```typescript
-    import { ServeStatic } from "https://deno.land/x/drash_middleware@v0.6.2/serve_static/mod.ts";
+    import { ServeStatic } from "https://deno.land/x/drash_middleware@v0.6.2/mod.ts";
     ```
+
 3. Configure ServeStatic.
+
     ```typescript
     const serveStatic = Static({
       root_directory: Deno.realPathSync("."),
@@ -17,7 +22,9 @@
       }
     });
     ```
-4. Add ServeStatic to your server's middleware configs.
+
+4. Add `ServeStatic` to your server's middleware configs.
+
     ```typescript
     const server = new Drash.Http.Server({
       ...
@@ -29,4 +36,5 @@
       ...
     });
     ```
+
 5. You are all set!
