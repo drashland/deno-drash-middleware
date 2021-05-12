@@ -17,22 +17,18 @@ const root = {
   },
 };
 const graphQL = GraphQL({ schema, graphiql: true, rootValue: root });
+@Drash.Http.Middleware({
+  before_request: [graphQL],
+})
 class GraphQLResource extends Drash.Http.Resource {
   static paths = ["/graphql"];
 
-  @Drash.Http.Middleware({
-    before_request: [graphQL],
-  })
   // Used purely as an endpoint for the frontend playground
   public GET() {
     return this.response;
   }
 
   // Used purely as an endpoint to make a query from the client
-  @Drash.Http.Middleware({
-    before_request: [graphQL],
-    after_request: [],
-  })
   public POST() {
     return this.response;
   }
