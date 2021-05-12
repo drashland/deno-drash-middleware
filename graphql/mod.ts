@@ -45,7 +45,7 @@ export function GraphQL(
     }
 
     const body = request.parsed_body.data as Record<string, unknown>;
-    const query = Object.keys(body)[0]; // Because drahs by default will parse body as application ww form url encoded, so the `body` looks like `{ "{ hello }": undefined }`, which is not the correct format and would need addressing ats ome point as drash should allow the body to be a string too
+    const query = Object.keys(body)[0]; // Because drash by default will parse body as application www form url encoded, so the `body` looks like `{ "{ hello }": undefined }`, which is not the correct format
     const result = await graphql(
       options.schema,
       query,
