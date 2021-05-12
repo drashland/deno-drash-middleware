@@ -23,7 +23,11 @@ export function GraphQL(
   response: Drash.Http.Response,
 ) => Promise<Drash.Http.Response> {
   return async (request: Drash.Http.Request, response: Drash.Http.Response) => {
-    const playgroundEndpoint = options.graphiql === true ? "/graphql" : typeof options.graphiql === "string" ? options.graphiql : false
+    const playgroundEndpoint = options.graphiql === true
+      ? "/graphql"
+      : typeof options.graphiql === "string"
+      ? options.graphiql
+      : false;
     if (
       options.graphiql && request.method === "GET" &&
       (request.headers.get("Accept")?.includes("text/html") ||
