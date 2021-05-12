@@ -27,9 +27,9 @@ export function GraphQL(
       ? "/graphql"
       : typeof options.graphiql === "string"
       ? options.graphiql
-      : false;
+      : undefined;
     if (
-      options.graphiql && request.method === "GET" &&
+      playgroundEndpoint && request.method === "GET" &&
       (request.headers.get("Accept")?.includes("text/html") ||
         request.headers.get("Accept")?.includes("*/*"))
     ) {
