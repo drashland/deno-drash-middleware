@@ -1,5 +1,5 @@
 import { Drash } from "../../deps.ts";
-import { mockRequest, Rhum } from "../../test_deps.ts";
+import { Rhum, mockRequest } from "../../test_deps/deps.ts";
 import { ServeTypeScript } from "../mod.ts";
 
 Rhum.testPlan("ServeTypeScript - mod_test.ts", () => {

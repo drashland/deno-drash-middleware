@@ -1,4 +1,4 @@
-import { Rhum } from "../../test_deps.ts";
+import { Rhum } from "../../test_deps/deps.ts";
 import { Dexter } from "../mod.ts";
 
 Rhum.testPlan("Dexter - mod_test.ts", () => {
