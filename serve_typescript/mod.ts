@@ -7,7 +7,7 @@ interface IFile {
 
 interface IOptions {
   files: IFile[];
-  compilerOptions?: Deno.compilerOptions
+  compilerOptions?: Deno.compilerOptions;
 }
 
 export function ServeTypeScript(options: IOptions) {
@@ -33,20 +33,23 @@ export function ServeTypeScript(options: IOptions) {
       const file = options.files[index];
 
       try {
-        const { diagnostics, files } = options.compilerOptions ? await Deno.emit(
-          file.source, {
-            compilerOptions: options.compilerOptions
-          }
-        ) : await Deno.emit(file.source);
+        const { diagnostics, files } = options.compilerOptions
+          ? await Deno.emit(
+            file.source,
+            {
+              compilerOptions: options.compilerOptions,
+            },
+          )
+          : await Deno.emit(file.source);
         const fileKey = Object.keys(files).find((filename) => {
           return filename.includes(".ts.js.map") === false;
         }) as string;
         const outputString = files[fileKey];
 
-        const formattedDiagnostics = Deno.formatDiagnostics(diagnostics)
+        const formattedDiagnostics = Deno.formatDiagnostics(diagnostics);
         if (formattedDiagnostics !== "") {
-          console.error(formattedDiagnostics)
-          Deno.exit(1)
+          console.error(formattedDiagnostics);
+          Deno.exit(1);
         }
 
         // Store the compiled out in the

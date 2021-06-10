@@ -51,8 +51,8 @@ Rhum.testPlan("ServeTypeScript - mod_test.ts", () => {
           },
         ],
         compilerOptions: {
-          lib: ["dom"]
-        }
+          lib: ["dom"],
+        },
       });
       await serveTs.compile();
       await serveTs.run(

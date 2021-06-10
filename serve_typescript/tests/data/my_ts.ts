@@ -23,4 +23,4 @@ export class User extends Employee {
   }
 }
 
-const something = document.body
+const something = document.body;
