@@ -7,7 +7,7 @@ interface IFile {
 
 interface IOptions {
   files: IFile[];
-  compilerOptions?: Deno.compilerOptions;
+  compilerOptions?: Deno.CompilerOptions;
 }
 
 export function ServeTypeScript(options: IOptions) {
@@ -48,8 +48,7 @@ export function ServeTypeScript(options: IOptions) {
 
         const formattedDiagnostics = Deno.formatDiagnostics(diagnostics);
         if (formattedDiagnostics !== "") {
-          console.error(formattedDiagnostics);
-          Deno.exit(1);
+          throw new Error(formattedDiagnostics);
         }
 
         // Store the compiled out in the
