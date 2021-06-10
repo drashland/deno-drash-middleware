@@ -42,8 +42,6 @@ const serveTs = ServeTypeScript({
 
 ### `files`
 
-
-
 This config is required. ServeTypeScript cannot run unless it is given files to
 compile during compile time. Compile time is when the Drash server is being
 created.
@@ -65,12 +63,12 @@ TypeScript file at the `/ts/my_ts.ts` URI, then define `target` as
 `/ts/my_ts.ts`. When a request is made to `http://yourserver.com/ts/my_ts.ts`,
 your compiled TypeScript will be returned as the response.
 
-
-
-
 ### `compilerOptions`
 
-This property is optional, and is used when the middleware is emitting the source file. It is of type `Deno.compilerOptions`, and you can find more information in [Deno's Documentation](https://doc.deno.land/builtin/unstable#Deno.CompilerOptions).
+This property is optional, and is used when the middleware is emitting the
+source file. It is of type `Deno.compilerOptions`, and you can find more
+information in
+[Deno's Documentation](https://doc.deno.land/builtin/unstable#Deno.CompilerOptions).
 
 ```ts
 const serverTs = ServerTypeScript({
@@ -81,7 +79,8 @@ const serverTs = ServerTypeScript({
 });
 ```
 
-That is just one of the many properties you can specify inside `compilerOptions`.
+That is just one of the many properties you can specify inside
+`compilerOptions`.
 
 ## Tutorial: Writing Front-end TypeScript
 
