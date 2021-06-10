@@ -33,14 +33,12 @@ export function ServeTypeScript(options: IOptions) {
       const file = options.files[index];
 
       try {
-        const { diagnostics, files } = options.compilerOptions
-          ? await Deno.emit(
-            file.source,
-            {
-              compilerOptions: options.compilerOptions,
-            },
-          )
-          : await Deno.emit(file.source);
+        const { diagnostics, files } = await Deno.emit(
+          file.source,
+          {
+            compilerOptions: options.compilerOptions ?? {},
+          },
+        );
         const fileKey = Object.keys(files).find((filename) => {
           return filename.includes(".ts.js.map") === false;
         }) as string;
