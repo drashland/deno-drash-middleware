@@ -38,6 +38,11 @@ export const bumpVersionFiles = [
     replaceWith: `drash_middleware@v{{ thisModulesLatestVersion }}`,
   },
   {
+    filename: "./rate_limiter/README.md",
+    replaceTheRegex: regexes.import_export_statements,
+    replaceWith: `drash_middleware@v{{ thisModulesLatestVersion }}`,
+  },
+  {
     filename: "./serve_typescript/README.md",
     replaceTheRegex: regexes.import_export_statements,
     replaceWith: `drash_middleware@v{{ thisModulesLatestVersion }}`,
@@ -87,6 +92,11 @@ export const bumpDependencyFiles = [
   },
   {
     filename: "./paladin/README.md",
+    replaceTheRegex: regexes.drash_import_statements,
+    replaceWith: `drash@v${latestDrashVersion}`,
+  },
+  {
+    filename: "./rate_limiter/README.md",
     replaceTheRegex: regexes.drash_import_statements,
     replaceWith: `drash@v${latestDrashVersion}`,
   },
