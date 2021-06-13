@@ -10,17 +10,38 @@ export interface Configs {
 class MemoryStore {
   private hits: Record<string, number> = {};
   private resetTime: Date;
+  private timeframe: number
 
+  /**
+   * @param timeframe - Reset time/duration
+   */
   constructor(timeframe: number) {
     this.resetTime = this.calculateNextResetTime(timeframe);
+    this.timeframe = timeframe
+    this.queueReset()
   }
 
+  /**
+   * Create the next reset time given the `timeframe`
+   * 
+   * @param timeframe Essentially, current time + timeframe
+   * 
+   * @returns The new reset time 
+   */
   private calculateNextResetTime(timeframe: number): Date {
     const d = new Date();
     d.setMilliseconds(d.getMilliseconds() + timeframe);
     return d;
   }
 
+  /**
+   * Increase the number of hits given the ip
+   * 
+   * @param key - The IP of the request
+   * 
+   * @returns The current amount of requests recieved for `key` (`hits`) and
+   * the reset time
+   */
   public increment(key: string): {
     current: number;
     resetTime: Date;
@@ -34,6 +55,16 @@ class MemoryStore {
       current: this.hits[key],
       resetTime: this.resetTime,
     };
+  }
+
+  /**
+   * Start an interval to reset the hits and reset time based on the timeframr
+   */
+  private queueReset() {
+    setInterval(() => {
+      this.hits = {}
+      this.resetTime = this.calculateNextResetTime(this.timeframe)
+    }, this.timeframe)
   }
 }
 
@@ -74,6 +105,9 @@ export function RateLimit(
           "Retry-After",
           Math.ceil(timeframe / 1000).toString(),
         );
+        response.status_code = 429
+        response.body = "Too many requests, please try again later."
+        return true
       }
     }
   }

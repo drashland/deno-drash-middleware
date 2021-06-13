@@ -39,7 +39,8 @@ Rhum.testPlan("RateLimit - mod_test.ts", () => {
         res = await fetch("http://localhost:1667/");
         await res.arrayBuffer();
         headers = res.headers;
-        console.log(headers);
+        Rhum.asserts.assertEquals(res.status, 200)
+        Rhum.asserts.assertEquals(await res.text(), "Hello world")
         Rhum.asserts.assertEquals(headers.get("date"), "TODO"); // how do we assert this as we don't know the actual date?
         Rhum.asserts.assertEquals(headers.get("x-ratelimit-limit"), "3");
         Rhum.asserts.assertEquals(headers.get("x-ratelimit-remaining"), "2");
@@ -47,8 +48,9 @@ Rhum.testPlan("RateLimit - mod_test.ts", () => {
         res = await fetch("http://localhost:1667/");
         await res.arrayBuffer();
         headers = res.headers;
-        console.log(headers);
         await server.close();
+        Rhum.asserts.assertEquals(res.status, 200)
+        Rhum.asserts.assertEquals(await res.text(), "Hello world")
         Rhum.asserts.assertEquals(headers.get("date"), "TODO"); // how do we assert this as we don't know the actual date?
         Rhum.asserts.assertEquals(headers.get("x-ratelimit-limit"), "3");
         Rhum.asserts.assertEquals(headers.get("x-ratelimit-remaining"), "1");
@@ -70,6 +72,8 @@ Rhum.testPlan("RateLimit - mod_test.ts", () => {
         res = await fetch("http://localhost:1667/");
         await res.arrayBuffer();
         headers = res.headers;
+        Rhum.asserts.assertEquals(res.status, 200)
+        Rhum.asserts.assertEquals(await res.text(), "Hello world")
         Rhum.asserts.assertEquals(headers.get("date"), "TODO"); // how do we assert this as we don't know the actual date?
         Rhum.asserts.assertEquals(headers.get("x-ratelimit-limit"), "3");
         Rhum.asserts.assertEquals(headers.get("x-ratelimit-remaining"), "0");
@@ -79,6 +83,8 @@ Rhum.testPlan("RateLimit - mod_test.ts", () => {
         await res.arrayBuffer();
         headers = res.headers;
         await server.close();
+        Rhum.asserts.assertEquals(res.status, 429)
+        Rhum.asserts.assertEquals(await res.text(), "Too many requests, please try again later.")
         Rhum.asserts.assertEquals(headers.get("date"), "TODO"); // how do we assert this as we don't know the actual date?
         Rhum.asserts.assertEquals(headers.get("x-ratelimit-limit"), "3");
         Rhum.asserts.assertEquals(headers.get("x-ratelimit-remaining"), "0");
