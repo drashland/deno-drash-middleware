@@ -21,7 +21,7 @@ Deno's `--unstable` flag (e.g., `deno run --unstable app.ts`)._
 
 ```typescript
 // Import the ServeTypeScript middleware function
-import { ServeTypeScript } from "https://deno.land/x/drash_middleware@v0.7.7/serve_typescript/mod.ts";
+import { ServeTypeScript } from "https://deno.land/x/drash_middleware@v0.7.8/serve_typescript/mod.ts";
 
 // Instantiate ServeTypeScript and pass in the files you want compiled during
 // compile time. The compiled output of these files will be used during runtime.
@@ -105,7 +105,7 @@ into JavaScript during server creation.
    // File: app.ts
    import { Drash } from "https://deno.land/x/drash@v1.5.0/mod.ts";
    import { HomeResource } from "./home_resource.ts";
-   import { ServeTypeScript } from "https://deno.land/x/drash_middleware@v0.7.7/serve_typescript/mod.ts";
+   import { ServeTypeScript } from "https://deno.land/x/drash_middleware@v0.7.8/serve_typescript/mod.ts";
 
    const serveTs = ServeTypeScript({
      files: [
