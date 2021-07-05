@@ -1,4 +1,4 @@
-import { Rhum } from "../../test_deps.ts";
+import { Rhum } from "../../test_deps/deps.ts";
 import { Paladin } from "../mod.ts";
 import { Drash } from "../../deps.ts";
 

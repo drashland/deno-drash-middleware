@@ -1,5 +1,5 @@
 import { Drash } from "../../deps.ts";
-import { Rhum } from "../../test_deps.ts";
+import { Rhum } from "../../test_deps/deps.ts";
 import { Tengine } from "../mod.ts";
 
 class Resource extends Drash.Http.Resource {
