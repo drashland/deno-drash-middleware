@@ -1,3 +1,4 @@
+import { ConsoleLogger, LoggerConfigs } from "./deps.ts";
 import { Drash } from "../deps.ts";
 
 /**
@@ -9,7 +10,7 @@ import { Drash } from "../deps.ts";
  *
  *     Are response times enabled?
  */
-interface IDexterConfigs extends Drash.Interfaces.LoggerConfigs {
+interface IDexterConfigs extends LoggerConfigs {
   response_time?: boolean;
 }
 
@@ -22,10 +23,8 @@ export function Dexter(
   configs?: IDexterConfigs,
 ) {
   const defaultConfigs = {
-    enabled: true,
-    level: "info",
     // deno-lint-ignore camelcase
-    tag_string: "{datetime} | {level} |",
+    tag_string: "{datetime} |",
     // deno-lint-ignore camelcase
     tag_string_fns: {
       datetime() {
@@ -36,19 +35,9 @@ export function Dexter(
 
   // If configs are passed in, make sure (at the very least) that the following
   // configs are present:
-  // - enabled
-  // - level
   // - tag_string
   // - tag_string_fns
   if (configs) {
-    // deno-lint-ignore no-prototype-builtins
-    if (!configs.hasOwnProperty("enabled")) {
-      configs.enabled = defaultConfigs.enabled;
-    }
-    // deno-lint-ignore no-prototype-builtins
-    if (!configs.hasOwnProperty("level")) {
-      configs.level = defaultConfigs.level;
-    }
     // deno-lint-ignore no-prototype-builtins
     if (!configs.hasOwnProperty("tag_string")) {
       configs.tag_string = defaultConfigs.tag_string;
@@ -61,7 +50,7 @@ export function Dexter(
 
   configs = configs ?? defaultConfigs;
 
-  const logger = new Drash.CoreLoggers.ConsoleLogger(configs);
+  const logger = new ConsoleLogger(configs);
 
   let timeStart: number;
   let timeEnd: number;

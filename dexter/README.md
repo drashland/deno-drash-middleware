@@ -15,9 +15,7 @@ const dexter = Dexter();
 
 // The above will instantiate Dexter with default values:
 // {
-//     enabled: true,
-//     level: "info",
-//     tag_string: "{datetime} | {level} |",
+//     tag_string: "{datetime} |",
 //     tag_string_fns: {
 //       datetime() {
 //         return new Date().toISOString().replace("T", " ").split(".")[0];
@@ -51,36 +49,6 @@ console.log(`Server running at ${server.hostname}:${server.port}`);
 
 If you decide to configure Dexter, make sure you specify the `enabled` flag in
 the configs as it is required when customizing the configuration.
-
-### `enabled`
-
-Enable or disable the logger from logging based on the value of this config.
-
-```typescript
-const dexter = Dexter({
-  enabled: true, // or false
-});
-```
-
-### `level`
-
-Define what log statements should be written based on their log level definition
-(e.g., debug, info, warn).
-
-```typescript
-const dexter = Dexter({
-  enabled: true,
-  level: "debug", // or all, trace, debug, info, warn, error, fatal
-});
-```
-
-- `all`: logs all messages below
-- `trace`: logs `.trace()` messages and the below
-- `debug`: logs `.debug()` messages and the below
-- `info`: logs `.info()` messages and the below
-- `warn`: logs `.warn()` messages and the below
-- `error`: logs `.error()` messages and the below
-- `fatal`: logs `.fatal()` messages only
 
 ### `tag_string`
 
@@ -144,8 +112,6 @@ you want to use Dexter in one of your resources, then do the following:
    import { Dexter } from "https://deno.land/x/drash_middleware@v0.7.8/dexter.ts";
 
    const dexter = Dexter({
-     enabled: true,
-     level: "debug",
      tag_string: "{request_method} {request_url} |",
    });
 
@@ -198,3 +164,7 @@ you want to use Dexter in one of your resources, then do the following:
      }
    }
    ```
+
+Because of how you have setup the Dexter middleware, your app will display
+`[INFO] <uri> <method> | Request Received` when a request is received, and
+`[INFO] Response sent.` when the response is sent back to the client
