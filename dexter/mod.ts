@@ -10,47 +10,39 @@ import { Drash } from "../deps.ts";
  *
  *     Are response times enabled?
  */
-interface IDexterConfigs extends LoggerConfigs {
+interface IDexterConfigs {
   response_time?: boolean;
+  url?: boolean,
+  datetime?: boolean,
+  method?: boolean
 }
 
 /**
  * A logger middleware inspired by https://www.npmjs.com/package/morgan.
  *
  * @param configs - See IDexterConfigs
+ * 
+ * @example
+ * ```ts
+ * const dexter = Dexter()
+ * const dexter = Dexter({
+ *  response_time: true,
+ * 
+ * })
+ * ```
  */
 export function Dexter(
   configs?: IDexterConfigs,
 ) {
-  const defaultConfigs = {
-    // deno-lint-ignore camelcase
-    tag_string: "{datetime} |",
-    // deno-lint-ignore camelcase
-    tag_string_fns: {
-      datetime() {
-        return new Date().toISOString().replace("T", " ").split(".")[0];
-      },
-    },
-  };
-
-  // If configs are passed in, make sure (at the very least) that the following
-  // configs are present:
-  // - tag_string
-  // - tag_string_fns
-  if (configs) {
-    // deno-lint-ignore no-prototype-builtins
-    if (!configs.hasOwnProperty("tag_string")) {
-      configs.tag_string = defaultConfigs.tag_string;
-    }
-    // deno-lint-ignore no-prototype-builtins
-    if (!configs.hasOwnProperty("tag_string_fns")) {
-      configs.tag_string_fns = defaultConfigs.tag_string_fns;
-    }
+  if (!configs) {
+    configs = {}
   }
-
-  configs = configs ?? defaultConfigs;
-
-  const logger = new ConsoleLogger(configs);
+  configs = {
+    datetime: configs.datetime || true,
+    url: configs.url || false,
+    method: configs.method || false,
+    response_time: configs.response_time || false
+  }
 
   let timeStart: number;
   let timeEnd: number;
@@ -65,43 +57,38 @@ export function Dexter(
     request: Drash.Http.Request,
     response?: Drash.Http.Response,
   ): void {
-    // If there is no response, then we know this is occurring before the request
+    const loggerConfigs: LoggerConfigs = {
+      tag_string: "",
+      tag_string_fns: {}
+    }
+    // If a user has defined specific strings we allow, ensure they are set before we had it off to unilogger to process into a log statement
+    if (configs?.datetime !== false) {
+      loggerConfigs.tag_string += "{datetime} |"
+      loggerConfigs.tag_string_fns!.datetime = () => new Date().toISOString().replace("T", " ").split(".")[0]
+    }
+    if (configs?.method) {
+      loggerConfigs.tag_string += " {request_method} |"
+      loggerConfigs.tag_string_fns!.request_method = () => request.method.toUpperCase()
+    }
+    if (configs!.url) {
+      loggerConfigs.tag_string += " {request_url} |"
+      loggerConfigs.tag_string_fns!.request_url = () => request.url
+    }
+
+    // Initiate unilogger
+    const logger = new ConsoleLogger(loggerConfigs)
+
     if (!response) {
       timeStart = new Date().getTime();
-      // Replace predefined tags with their values
-      if (configs!.tag_string) {
-        let tagString = configs!.tag_string;
-        if (tagString.includes("{request_method}")) {
-          tagString = tagString.replace(
-            "{request_method}",
-            request.method.toUpperCase(),
-          );
-        }
-        if (tagString.includes("{request_url}")) {
-          tagString = tagString.replace("{request_url}", request.url);
-        }
-        configs!.tag_string = tagString;
-      }
       logger.info(`Request received.`);
     }
 
     // If there is a response, then we know this is occurring after the request
-    if (response) {
+    if (response && configs?.response_time) {
       timeEnd = new Date().getTime();
-      let message = "Response sent.";
-      if (configs!.response_time === true) {
-        message += ` [${getTime(timeEnd, timeStart)}]`;
-      }
-      logger.info(message);
+      logger.info("Response sent [" + getTime(timeEnd, timeStart) + "]");
     }
   }
-
-  // Expose the logger so that the logging functionality can be used freely by
-  // the user
-  dexter.logger = logger;
-
-  // Expose the configs in case the user wants to do anything with them
-  dexter.configs = configs;
 
   return dexter;
 }
