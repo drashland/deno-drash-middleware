@@ -47,6 +47,10 @@ jobs:
         run: |
           deno test -A --unstable serve_typescript/tests/mod_test.ts
 
+      - name: Rate Limiter
+        run: |
+          deno test -A rate_limiter
+
   linter:
     # Only one OS is required since fmt is cross platform
     runs-on: ubuntu-latest
