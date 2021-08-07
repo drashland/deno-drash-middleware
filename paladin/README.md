@@ -9,7 +9,7 @@ This does not make your application bulletproof, but adds extra security layers.
 import { Drash } from "https://deno.land/x/drash@v1.5.1/mod.ts";
 
 // Import the Paladin middleware function
-import { Paladin } from "https://deno.land/x/drash_middleware@v0.7.8/paladin/mod.ts";
+import { Paladin } from "https://deno.land/x/drash_middleware@v0.7.9/paladin/mod.ts";
 
 // Instantiate paladin
 const paladin = Paladin();
