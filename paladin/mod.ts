@@ -12,7 +12,9 @@ type ReferrerPolicy =
   | "unsafe-url";
 
 type HSTS = {
+  // deno-lint-ignore camelcase
   max_age?: boolean | number;
+  // deno-lint-ignore camelcase
   include_sub_domains?: boolean;
   preload?: boolean;
 };
@@ -25,9 +27,12 @@ interface Configs {
   "X-Powered-By"?: boolean | string;
   "X-Frame-Options"?: "DENY" | "SAMEORIGIN" | boolean | string // eg ALLOW-FROM www.example.com
   ;
+  // deno-lint-ignore camelcase
   expect_ct?: {
     enforce?: boolean;
+    // deno-lint-ignore camelcase
     max_age?: number;
+    // deno-lint-ignore camelcase
     report_uri?: string;
   };
   "X-DNS-Prefetch-Control"?: boolean;
@@ -56,7 +61,7 @@ export function Paladin(
    * @param response - (optional) The response object.
    */
   function paladin(
-    request: Drash.Http.Request,
+    _request: Drash.Http.Request,
     response?: Drash.Http.Response,
   ): void {
     // If there is a response, then we know this is occurring after the request

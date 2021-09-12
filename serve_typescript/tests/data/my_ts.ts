@@ -3,6 +3,7 @@ export function greet(name: string): string {
 }
 
 interface Details {
+  // deno-lint-ignore camelcase
   company_name: string;
   name: string;
 }
@@ -23,4 +24,4 @@ export class User extends Employee {
   }
 }
 
-const something = document.body;
+const _something = document.body;

@@ -1,5 +1,4 @@
 import { Drash } from "../../deps.ts";
-import { Rhum } from "../../test_deps.ts";
 import { Tengine } from "../mod.ts";
 
 class Resource extends Drash.Http.Resource {
@@ -14,7 +13,7 @@ class Resource extends Drash.Http.Resource {
 }
 
 const tengine = Tengine({
-  render: (...args: unknown[]): boolean => {
+  render: (..._args: unknown[]): boolean => {
     return false; // This render method returns false to tell Tengine to use Jae
   },
   views_path: "./tengine/tests/views",

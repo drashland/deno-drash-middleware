@@ -40,18 +40,24 @@ console.log(`Server running at ${server.hostname}:${server.port}`);
 
 ### `datetime`
 
-Will display the date and time of when the request was handled. Example logging output would be: `[INFO] 2021-07-08 19:59:50 | Request received`
+Will display the date and time of when the request was handled. Example logging
+output would be: `[INFO] 2021-07-08 19:59:50 | Request received`
 
-Note that this option is enabled by default. Set `datetime` to `false` when calling `Dexter` to disable this
+Note that this option is enabled by default. Set `datetime` to `false` when
+calling `Dexter` to disable this
 
 ### `url`
 
-Will display the requested url. Example logging output would be: `[INFO] /users | Request received`
+Will display the requested url. Example logging output would be:
+`[INFO] /users | Request received`
 
 ### method
 
-Will display the HTTP verb (method) of the request. Example logging output would be: `[INFO] GET | Request received`
+Will display the HTTP verb (method) of the request. Example logging output would
+be: `[INFO] GET | Request received`
 
 ### `response_time`
 
-Will append a value at the end of the logging, showing how long the request took. Example logging output would be: `[INFO] <datetime> | Response sent [5 ms]`
+Will append a value at the end of the logging, showing how long the request
+took. Example logging output would be:
+`[INFO] <datetime> | Response sent [5 ms]`

@@ -105,12 +105,6 @@ This config is optional. This config manages the
 Set this config to an integer to send the header. Otherwise, it is omitted from
 the response.
 
-### `optionsSuccessStatus`
-
-This config is optional. This config provides a status code to use for
-successful `OPTIONS` requests, since some legacy browsers (e.g., IE11, various
-SmartTVs) choke on `204`.
-
 ### `preflight`
 
 This config is optional. If needed, you can disable preflight entirely by

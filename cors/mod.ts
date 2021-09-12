@@ -1,8 +1,7 @@
 import { Drash } from "../deps.ts";
 import { vary } from "./deps.ts";
 
-interface ArrayOfValueOrArray<T> extends Array<ValueOrArray<T>> {}
-type ValueOrArray<T> = T | ArrayOfValueOrArray<T>;
+type ValueOrArray<T> = T | Array<ValueOrArray<T>>;
 type OriginOption = ValueOrArray<string | boolean | RegExp>;
 
 type CorsMiddlewareConfig = {
@@ -48,13 +47,12 @@ export const Cors = ({
   allowMethods = "GET,HEAD,PUT,PATCH,POST,DELETE",
   allowHeaders,
   maxAge,
-  optionsSuccessStatus = 204,
   preflight = true,
 }: CorsMiddlewareConfig = {}) =>
-  async (
+  (
     request: Drash.Http.Request,
     response: Drash.Http.Response,
-  ): Promise<void> => {
+  ): void => {
     // Make some config properties easier to work with
     if (Array.isArray(exposeHeaders)) {
       exposeHeaders = exposeHeaders.join(",");

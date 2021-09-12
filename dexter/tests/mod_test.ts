@@ -1,10 +1,8 @@
 import { Rhum } from "../../test_deps.ts";
-import { Dexter } from "../mod.ts";
 
 Rhum.testPlan("Dexter - mod_test.ts", () => {
   Rhum.testSuite("Dexter", () => {
     Rhum.testCase("logger and all of its log functions are exposed", () => {
-     
     });
   });
 });

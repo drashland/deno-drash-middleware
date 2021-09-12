@@ -11,23 +11,24 @@ import { Drash } from "../deps.ts";
  *     Are response times enabled?
  */
 interface IDexterConfigs {
+  // deno-lint-ignore camelcase
   response_time?: boolean;
-  url?: boolean,
-  datetime?: boolean,
-  method?: boolean
+  url?: boolean;
+  datetime?: boolean;
+  method?: boolean;
 }
 
 /**
  * A logger middleware inspired by https://www.npmjs.com/package/morgan.
  *
  * @param configs - See IDexterConfigs
- * 
+ *
  * @example
  * ```ts
  * const dexter = Dexter()
  * const dexter = Dexter({
  *  response_time: true,
- * 
+ *
  * })
  * ```
  */
@@ -35,14 +36,14 @@ export function Dexter(
   configs?: IDexterConfigs,
 ) {
   if (!configs) {
-    configs = {}
+    configs = {};
   }
   configs = {
     datetime: configs.datetime || true,
     url: configs.url || false,
     method: configs.method || false,
-    response_time: configs.response_time || false
-  }
+    response_time: configs.response_time || false,
+  };
 
   let timeStart: number;
   let timeEnd: number;
@@ -58,25 +59,29 @@ export function Dexter(
     response?: Drash.Http.Response,
   ): void {
     const loggerConfigs: LoggerConfigs = {
+      // deno-lint-ignore camelcase
       tag_string: "",
-      tag_string_fns: {}
-    }
+      // deno-lint-ignore camelcase
+      tag_string_fns: {},
+    };
     // If a user has defined specific strings we allow, ensure they are set before we had it off to unilogger to process into a log statement
     if (configs?.datetime !== false) {
-      loggerConfigs.tag_string += "{datetime} |"
-      loggerConfigs.tag_string_fns!.datetime = () => new Date().toISOString().replace("T", " ").split(".")[0]
+      loggerConfigs.tag_string += "{datetime} |";
+      loggerConfigs.tag_string_fns!.datetime = () =>
+        new Date().toISOString().replace("T", " ").split(".")[0];
     }
     if (configs?.method) {
-      loggerConfigs.tag_string += " {request_method} |"
-      loggerConfigs.tag_string_fns!.request_method = () => request.method.toUpperCase()
+      loggerConfigs.tag_string += " {request_method} |";
+      loggerConfigs.tag_string_fns!.request_method = () =>
+        request.method.toUpperCase();
     }
     if (configs!.url) {
-      loggerConfigs.tag_string += " {request_url} |"
-      loggerConfigs.tag_string_fns!.request_url = () => request.url
+      loggerConfigs.tag_string += " {request_url} |";
+      loggerConfigs.tag_string_fns!.request_url = () => request.url;
     }
 
     // Initiate unilogger
-    const logger = new ConsoleLogger(loggerConfigs)
+    const logger = new ConsoleLogger(loggerConfigs);
 
     if (!response) {
       timeStart = new Date().getTime();
