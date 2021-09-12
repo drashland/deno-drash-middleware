@@ -73,7 +73,7 @@ Rhum.testPlan("ServeTypeScript - mod_test.ts", () => {
           "        super(details);\n" +
           "    }\n" +
           "}\n" +
-          "const something = document.body;\n",
+          "const _something = document.body;\n",
       );
     });
   });
