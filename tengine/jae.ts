@@ -56,7 +56,7 @@ export class Jae {
     // Check if the template extends another template
     const extended = html.match(/<% extends.* %>/g);
     if (extended) {
-      extended.forEach((m: string, i: number) => {
+      extended.forEach((m: string) => {
         html = html.replace(m, "");
         let template = m.replace('<% extends("', "").replace('") %>', "");
         template = decoder.decode(
@@ -69,7 +69,7 @@ export class Jae {
     // Check for partials
     let partials;
     while ((partials = html.match(/<% include_partial.* %>/g))) {
-      partials.forEach((m: string, i: number) => {
+      partials.forEach((m: string) => {
         let template = m
           .replace('<% include_partial("', "")
           .replace('") %>', "");

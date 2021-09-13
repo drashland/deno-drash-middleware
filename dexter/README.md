@@ -11,18 +11,7 @@ import { Drash } from "https://deno.land/x/drash@v1.5.1/mod.ts";
 import { Dexter } from "https://deno.land/x/drash_middleware@v0.7.9/dexter/mod.ts";
 
 // Instantiate dexter
-const dexter = Dexter();
-
-// The above will instantiate Dexter with default values:
-// {
-//     enabled: true,
-//     level: "info",
-//     tag_string: "{datetime} | {level} |",
-//     tag_string_fns: {
-//       datetime() {
-//         return new Date().toISOString().replace("T", " ").split(".")[0];
-//     },
-// };
+const dexter = Dexter(); // By default, will display the date and time of the request
 
 // Create your server and plug in dexter to the middleware config
 const server = new Drash.Http.Server({
@@ -34,7 +23,7 @@ const server = new Drash.Http.Server({
       dexter,
     ],
     after_request: [
-      dexter,
+      dexter, // Only use if `response_time` is set for Dexter configs
     ],
   },
 });
@@ -49,72 +38,23 @@ console.log(`Server running at ${server.hostname}:${server.port}`);
 
 ## Configuration
 
-If you decide to configure Dexter, make sure you specify the `enabled` flag in
-the configs as it is required when customizing the configuration.
+### `datetime`
 
-### `enabled`
+Will display the date and time of when the request was handled. Example logging
+output would be: `[INFO] 2021-07-08 19:59:50 | Request received`
 
-Enable or disable the logger from logging based on the value of this config.
+Note that this option is enabled by default. Set `datetime` to `false` when
+calling `Dexter` to disable this
 
-```typescript
-const dexter = Dexter({
-  enabled: true, // or false
-});
-```
+### `url`
 
-### `level`
+Will display the requested url. Example logging output would be:
+`[INFO] /users | Request received`
 
-Define what log statements should be written based on their log level definition
-(e.g., debug, info, warn).
+### method
 
-```typescript
-const dexter = Dexter({
-  enabled: true,
-  level: "debug", // or all, trace, debug, info, warn, error, fatal
-});
-```
-
-- `all`: logs all messages below
-- `trace`: logs `.trace()` messages and the below
-- `debug`: logs `.debug()` messages and the below
-- `info`: logs `.info()` messages and the below
-- `warn`: logs `.warn()` messages and the below
-- `error`: logs `.error()` messages and the below
-- `fatal`: logs `.fatal()` messages only
-
-### `tag_string`
-
-Define the display of the log messages' tag string. The tag string is a
-concatenation of tokens preceding the log message. Available, predefined tags:
-
-- `{level}`
-- `{request_method}`
-- `{request_url}`
-
-```typescript
-const dexter = Dexter({
-  enabled: true,
-  tag_string: "{level} | {request_method} {request_url} |", // Will output something similar to "INFO | GET /home | The log message."
-});
-```
-
-### `tag_string_fns`
-
-If you want more customizations with the `tag_string` config, then you can use
-`tag_string_fns` to define what your tags should resolve to.
-
-```typescript
-const dexter = Dexter({
-  enabled: true,
-  tag_string: "{datetime} | {my_tag} |", // Will output something similar to "2020-07-12 10:32:14 | TIGERRR | The log message."
-  tag_string_fns: {
-    datetime() {
-      return new Date().toISOString().replace("T", " ").split(".")[0];
-    },
-    my_tag: "TIGERRR",
-  },
-});
-```
+Will display the HTTP verb (method) of the request. Example logging output would
+be: `[INFO] GET | Request received`
 
 ### `response_time`
 

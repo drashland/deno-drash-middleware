@@ -4,6 +4,7 @@ import { Jae } from "./jae.ts";
 interface IOptions {
   render:
     ((...args: unknown[]) => Promise<boolean | string> | boolean | string);
+  // deno-lint-ignore camelcase
   views_path?: string;
 }
 
@@ -19,7 +20,7 @@ export function Tengine(
    * @param response - (optional) The response object.
    */
   function tengine(
-    request: Drash.Http.Request,
+    _request: Drash.Http.Request,
     response: Drash.Http.Response,
   ): void {
     // If there is a response, then we know this is occurring after the request

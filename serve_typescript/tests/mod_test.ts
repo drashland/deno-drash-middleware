@@ -14,10 +14,6 @@ Rhum.testPlan("ServeTypeScript - mod_test.ts", () => {
     Rhum.testCase(
       "Throws an error when the users code is invalid when trying to compile",
       async () => {
-        const drashRequest = new Drash.Http.Request(
-          mockRequest("/assets/compiled.ts"),
-        );
-        const drashResponse = new Drash.Http.Response(drashRequest);
         const serveTs = ServeTypeScript({
           files: [
             {
@@ -77,7 +73,7 @@ Rhum.testPlan("ServeTypeScript - mod_test.ts", () => {
           "        super(details);\n" +
           "    }\n" +
           "}\n" +
-          "const something = document.body;\n",
+          "const _something = document.body;\n",
       );
     });
   });
