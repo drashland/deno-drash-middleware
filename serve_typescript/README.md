@@ -103,7 +103,7 @@ into JavaScript during server creation.
 
    ```typescript
    // File: app.ts
-   import { Drash } from "https://deno.land/x/drash@v1.5.1/mod.ts";
+   import { Drash } from "https://deno.land/x/drash@v2.0.0/mod.ts";
    import { HomeResource } from "./home_resource.ts";
    import { ServeTypeScript } from "https://deno.land/x/drash_middleware@v0.7.9/serve_typescript/mod.ts";
 
@@ -143,7 +143,7 @@ into JavaScript during server creation.
 2. Create your `home_resource.ts` file.
 
    ```typescript
-   import { Drash } from "https://deno.land/x/drash@v1.5.1/mod.ts";
+   import { Drash } from "https://deno.land/x/drash@v2.0.0/mod.ts";
 
    export class HomeResource extends Drash.Http.Resource {
      static paths = ["/"];
