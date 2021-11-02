@@ -20,6 +20,8 @@
 
 ---
 
+> :warning: **This repository is now archived!**: With the recent (as of writing) release of Drash v2, middleware (now named services) have been moved into the Drash repository. You can view all the Drash v2 documentation [here](https://drash.land/drash).
+
 ## Table of Contents
 
 - [Overview](#overview)
